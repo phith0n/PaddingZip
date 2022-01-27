@@ -17,7 +17,7 @@ For example, you can craft a valid JAR file using PaddingZip:
 ## Usage
 
 ```shell
-λ python paddingzip.py -h
+$ python paddingzip.py -h
 usage: paddingzip.py [-h] -i INPUT_FILENAME -o OUTPUT_FILENAME [-p PREPEND] [-a APPEND]
 
 A tool that you can craft a zip file that contains the padding characters between the file content
@@ -37,6 +37,16 @@ For example:
 
 ```shell
 python paddingzip.py -i original.jar -o modify.jar --prepend "this prepend to the start" --append "this append to the end"
+```
+
+## `zip -F`
+
+You also can use `zip -F` to fix the offset:
+
+```shell
+$ echo -n "prepend" > f
+$ cat f a.zip > b.zip
+$ zip -F b.zip --out c.zip
 ```
 
 ## License
