@@ -36,9 +36,9 @@ class ZIPManipulation(object):
             if length == 0:
                 break
             elif length > 4:
-                raise Exception('please do not append any bytes to zip file')
+                raise Exception('please do not append any bytes to original zip file')
             elif length < 4:
-                raise Exception('unknown type found')
+                raise Exception('unsupported type found')
 
             n = struct.unpack('<I', tag)
             self.next(n[0])
@@ -95,7 +95,7 @@ class ZIPManipulation(object):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='A tool that you can craft a zip file that contains the padding characters between the file content'
+        description='A tool you can craft a zip file that contains the padding characters between the file content'
     )
     parser.add_argument('-i', '--input', required=True, metavar='INPUT_FILENAME')
     parser.add_argument('-o', '--output', required=True, metavar='OUTPUT_FILENAME')
@@ -116,7 +116,7 @@ def main():
     with open(args.output, 'wb') as f:
         f.write(data)
 
-    print('file %s is generate' % args.output)
+    print('file %r is generated' % args.output)
 
 
 if __name__ == '__main__':
