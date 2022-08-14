@@ -89,6 +89,7 @@ class ZIPManipulation(object):
         self.reader.read(12)
         index = self.reader.tell()
         offset, comment_size = struct.unpack('<IH', self.reader.read(6))
+        self.reader.read(comment_size)
         self.prepend_table.append((index, offset))
         self.append_table.append((index + 4, comment_size))
 
@@ -101,9 +102,11 @@ def main():
     parser.add_argument('-o', '--output', required=True, metavar='OUTPUT_FILENAME')
     parser.add_argument('-p',
                         '--prepend',
+                        default='',
                         help='the characters that you want to prepend to the file beginning')
     parser.add_argument('-a',
                         '--append',
+                        default='',
                         help='the characters that you want to append to the file')
     args = parser.parse_args()
 
