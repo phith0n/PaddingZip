@@ -77,11 +77,11 @@ class ZIPManipulation(object):
 
     def zip_direntry(self):
         self.reader.read(24)
-        filename_size = struct.unpack('<H', self.reader.read(2))[0]
-        self.reader.read(12)
+        filename_size, extra_size = struct.unpack('<HH', self.reader.read(4))
+        self.reader.read(10)
         index = self.reader.tell()
         offset = struct.unpack('<I', self.reader.read(4))[0]
-        self.reader.read(filename_size)
+        self.reader.read(filename_size + extra_size)
 
         self.prepend_table.append((index, offset))
 
